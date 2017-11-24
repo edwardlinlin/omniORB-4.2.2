@@ -28,6 +28,8 @@
 // Description:
 //    wrapper classes for TimeBase::UtcT and TimeBase::TimeT
 //
+// 2017-11-24 edwardlintw
+// fix "CORBA::ULong/unsigned long" type mismatch issues
  
 #ifndef _RDI_TIME_WRAPPERS_H_
 #define _RDI_TIME_WRAPPERS_H_
@@ -235,7 +237,9 @@ public:
 
   // pretty-printing of absolute local time -- no newline
   void out_local(RDIstrstream& str) {
-    CORBA::ULong ts, tn;
+    // 2017-11-24 edwardlintw
+    // CORBA::ULong  ts  tn;
+    unsigned long ts, tn;
     get_posixbase_secs_nanosecs(ts, tn);
     RDI_posixbase_out_time(str, ts, tn);
     str << " (local time)";
@@ -395,7 +399,9 @@ public:
   }
   // pretty-printing of absolute univ time -- no newline
   void out_gmt(RDIstrstream& str) {
-    CORBA::ULong ts, tn;
+    // 2017-11-24 edwardlintw
+    // CORBA::ULong ts, tn;
+    unsigned long ts, tn;
     get_gmt_posixbase_secs_nanosecs(ts, tn);
     RDI_posixbase_out_time(str, ts, tn);
     str << " (greenwich mean time)";

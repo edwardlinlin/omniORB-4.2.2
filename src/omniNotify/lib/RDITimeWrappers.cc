@@ -27,6 +27,9 @@
 //
 // Description:
 //
+// 2017-11-24 edwardlin
+// 
+// fix CORBA::ULong/unsigned long type mismatch
  
 #include "thread_wrappers.h" 
 #include "RDITimeWrappers.h"
@@ -146,7 +149,9 @@ static int RDI_TimeT_fmt_local_buf_idx = 0;
 #undef WHATFN
 #define WHATFN "RDI_TimeT::fmt_local"
 const char *RDI_TimeT::fmt_local() {
-  CORBA::ULong ts, tm;
+  // 2017-11-24 edwardlin
+  //CORBA::ULong ts, tm;
+  unsigned long ts, tm;
   get_posixbase_secs_msecs(ts, tm);
   time_t secs_as_time_t = ts;
   TW_SCOPE_LOCK(otime_lock, RDI_out_time_lock, "RDI_out_time", WHATFN);

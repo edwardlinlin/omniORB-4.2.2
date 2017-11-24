@@ -28,11 +28,22 @@
 // Description:
 //    Class RDIstrstream: string construction using operator<<
 //        for types relevant to the omniNotify implementation
+//
+// 2017-11-24 edwardlintw
+// fix ambigious "long/long long" issue
+// 
+// RDIstrstream& operator<<(long long n);
+// RDIstrstream& operator<<(unsigned long long n);
+//
 
 #ifndef __RDI_STRSTREAM_H__
 #define __RDI_STRSTREAM_H__
-
+#include <limits.h>             // 2017-11-24 edwardlintw
 #include "corba_wrappers.h"
+
+#if (LONG_MAX != LLONG_MAX)     // 2017-11-24 edwardlintw
+#define HAS_LONGLONG
+#endif
 
 // ** NB:  the type of CORBA::Boolean maps to one of the basic types (depends on
 // platform).  Need to cast to int to get a "0" or "1" to print
@@ -61,7 +72,7 @@ public:
   RDIstrstream& operator<<(unsigned long n);
   RDIstrstream& operator<<(short n) {return operator<<((int)n);}
   RDIstrstream& operator<<(unsigned short n) {return operator<<((unsigned int)n);}
-#ifdef HAS_LongLong
+#ifdef HAS_LONGLONG             // 2017-11-24 edwardlintw
   RDIstrstream& operator<<(long long n);
   RDIstrstream& operator<<(unsigned long long n);
 #endif
@@ -72,7 +83,7 @@ public:
   RDIstrstream& operator<<(double n);
   RDIstrstream& operator<<(float n) { return operator<<((double)n); }
 #ifdef HAS_LongDouble
-  RDIstrstream& operator<<(long long n);
+  RDIstrstream& operator<<(long double n);
 #endif
 #endif
 

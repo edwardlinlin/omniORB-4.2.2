@@ -28,6 +28,11 @@
 // Description:
 //    Class RDIstrstream: string construction using operator<<
 //        for types relevant to the omniNotify implementation
+//
+// 2017-11-24 edwardlin
+//
+// fix ambigious "long long/long" issues
+// refer to ../include/RDIstrstream.h and HAS_LONGLONG 
  
 #include "RDIstrstream.h"
 #include "RDIStringDefs.h"
@@ -195,9 +200,13 @@ RDIstrstream::operator<<(unsigned long n)
   return *this;
 }
 
-#ifdef HAS_LongLong
+// 2017-11-24 edwardlin
+//#ifdef HAS_LongLong
+//RDIstrstream&
+//RDIstrstream::operator<<(WRAPPED_CORBA_LONGLONG_TYPE n)
+#ifdef HAS_LONGLONG
 RDIstrstream&
-RDIstrstream::operator<<(WRAPPED_CORBA_LONGLONG_TYPE n)
+RDIstrstream::operator<<(long long n)
 {
   reserve(60);
   sprintf(_p, "%lld", n);
@@ -206,8 +215,10 @@ RDIstrstream::operator<<(WRAPPED_CORBA_LONGLONG_TYPE n)
   return *this;
 }
 
+//RDIstrstream&
+//RDIstrstream::operator<<(WRAPPED_CORBA_ULONGLONG_TYPE n)
 RDIstrstream&
-RDIstrstream::operator<<(WRAPPED_CORBA_ULONGLONG_TYPE n)
+RDIstrstream::operator<<(unsigned long long n)
 {
   reserve(60);
   sprintf(_p, "%llu", n);
