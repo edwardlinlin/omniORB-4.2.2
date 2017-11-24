@@ -2,3 +2,11 @@
 *.swp
 build/
 src/omniNotify/build
+src/lib/omniORB/python/omniidl_be/*.pyc
+src/lib/omniorb/python/omniidl_be/cxx
+src/lib/omniorb/python/omniidl_be/cxx/*.pyc
+src/lib/omniorb/python/omniidl_be/cxx/dynskel/*.pyc
+src/lib/omniorb/python/omniidl_be/cxx/header/*.pyc
+src/lib/omniorb/python/omniidl_be/cxx/impl/*.pyc
+src/lib/omniorb/python/omniidl_be/cxx/skel/*.pyc
+
