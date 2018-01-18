@@ -1,5 +1,0 @@
-module MyStTest {
-  struct MySt {
-    unsigned long ul;
-  };
-};
